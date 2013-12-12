@@ -85,8 +85,8 @@ void LendaPacker::CalcEnergyGates(){
     longGate = theFilter.getGate(theChannel->trace,start,lg);
     shortGate = theFilter.getGate(theChannel->trace,start,sg);
   } else if (theChannel->chanid ==8 ){
-    longGate = theFilter.getGate(theChannel->trace,start,lg);
-    shortGate = theFilter.getGate(theChannel->trace,start,sg);
+    longGate = theFilter.getGate(theChannel->trace,start,lg2);
+    shortGate = theFilter.getGate(theChannel->trace,start,sg2);
   }
 }
 
