@@ -31,6 +31,7 @@ public:
 
 
   inline void SetDDASChannel(ddaschannel *d){theChannel=d;} 
+  inline void SetJEntry(Long64_t n){jentry=n;}
 
   vector <Double_t> thisEventsFF;
   vector <Double_t> thisEventsCFD;
@@ -54,6 +55,7 @@ private:
   Double_t FL,FG,d,w;
   Double_t lg,sg,lg2,sg2;
   Int_t traceDelay;
+  Long64_t jentry;
 
 };
 

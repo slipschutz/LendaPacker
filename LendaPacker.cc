@@ -18,6 +18,7 @@ LendaPacker::LendaPacker(){
   lg2=-1;
   sg2=-1;
   traceDelay=-1;
+  jentry=-1;
   Reset();
   theChannel=NULL;
 }
@@ -109,7 +110,7 @@ void LendaPacker::PackEvent(LendaEvent * Event){
   Event->pushCubicCFD(cubicCFD);
   Event->pushCubicTime(theChannel->timelow +theChannel->timehigh*4294967296.0+cubicCFD);
   Event->pushInternalCFD((theChannel->timecfd)/65536.0);
-  //  Event->pushEntryNum(events[i]->jentry);
+  Event->pushEntryNum(jentry);
 
 
   Reset();//Reset the Packers variables
