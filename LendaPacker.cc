@@ -1,9 +1,5 @@
 
-
 #include "LendaPacker.hh"
-
-
-
 
 
 LendaPacker::LendaPacker(){
