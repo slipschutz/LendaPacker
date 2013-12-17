@@ -1,12 +1,12 @@
+LENDAHEAD=$(shell echo $$LENDAHEAD)
 CXX=$(shell root-config --cxx)
-CFLAGS=-c -g -Wall $(shell root-config --cflags) -I./src -I ./include 
+CFLAGS=-c -g -Wall $(shell root-config --cflags)
+INCLUDES= -I./include -I$(LENDAHEAD)/LendaCommonInclude
 LDLIBS=$(shell root-config --glibs)
 LDFLAGS=$(shell root-config --ldflags)
 #SOURCES=./src/SL_Event.cc ./src/FileManager.cc ./src/Filter.cc
 
 
-EXTRAOBJS=$(patsubst %.cc,%.o,$(EXTRASOURCE))
-EXTRAHEADS=$(patsubst %.cc,%.hh,$(EXTRASOURCE))
 
 ROOTCINT=rootcint
 
@@ -25,14 +25,14 @@ all: $(LIBRARY)
 
 $(LIBRARY) : $(OBJECT) $(HEAD)
 	@echo "Building Library"
-	@$(CXX) `root-config --cflags` -fPIC -shared -o $@ $^
+	@$(CXX) `root-config --cflags` $(INCLUDES) -fPIC -shared -o $@ $^
 	@echo "Build succeed"
 %.o : %.cc
 	@echo "Compiling" $< "..."
-	@$(CXX) $(CFLAGS) -fPIC $< -o $@ 
+	@$(CXX) $(CFLAGS) $(INCLUDES) -fPIC $< -o $@ 
 
 test:
-	echo $(HEAD)
+	echo $(INCLUDES)
 
 
 clean:
