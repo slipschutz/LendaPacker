@@ -44,7 +44,7 @@ public:
   Double_t softwareCFD;
   Double_t start;
   
-  bool lean;
+
 
 
   void PackEvent(LendaEvent* Event);

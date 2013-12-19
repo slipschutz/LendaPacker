@@ -88,12 +88,12 @@ void LendaPacker::CalcEnergyGates(){
 }
 
 void LendaPacker::PackEvent(LendaEvent * Event){
-  if (lean == false){
-    Event->pushTrace(theChannel->trace);//save the trace for later if its there
-    //it is 0 if it isn't
-    Event->pushFilter(thisEventsFF); //save filter if it is there
-    Event->pushCFD(thisEventsCFD); //save CFD if it is there
-  }
+
+  Event->pushTrace(theChannel->trace);//save the trace for later 
+  
+  Event->pushFilter(thisEventsFF); //save filter if it is there
+  Event->pushCFD(thisEventsCFD); //save CFD if it is there
+  
   //Push other thing into the event
   Event->pushLongGate(longGate); //longer integration window
   Event->pushShortGate(shortGate);//shorter integration window
