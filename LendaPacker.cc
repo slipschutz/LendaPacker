@@ -52,7 +52,7 @@ void LendaPacker::Reset(){
   cubicCFD=0;
   softwareCFD=0;
   start=0;
-
+  numZeroCrossings=0;
   
 
 }
@@ -62,7 +62,7 @@ void LendaPacker::CalcTimeFilters(){
   theFilter.FastFilter(theChannel->trace,thisEventsFF,FL,FG); //run FF algorithim
   thisEventsCFD = theFilter.CFD(thisEventsFF,d,w); //run CFD algorithim
 
-  softwareCFD=theFilter.GetZeroCrossing(thisEventsCFD)-traceDelay; //find zeroCrossig of CFD
+  softwareCFD=theFilter.GetZeroCrossing(thisEventsCFD,numZeroCrossings)-traceDelay; //find zeroCrossig of CFD
 
   cubicCFD = theFilter.GetZeroCubic(thisEventsCFD)-traceDelay;
 
@@ -73,7 +73,7 @@ void LendaPacker::CalcEnergyGates(){
   if (softwareCFD!=0)
     start = theFilter.getStartForPulseShape(softwareCFD,traceDelay);
   else{
-    softwareCFD=theFilter.GetZeroCrossing(thisEventsCFD)-traceDelay;
+    softwareCFD=theFilter.GetZeroCrossing(thisEventsCFD,numZeroCrossings)-traceDelay;
     start = theFilter.getStartForPulseShape(softwareCFD,traceDelay);
   }
     
@@ -85,6 +85,12 @@ void LendaPacker::CalcEnergyGates(){
     longGate = theFilter.getGate(theChannel->trace,start,lg2);
     shortGate = theFilter.getGate(theChannel->trace,start,sg2);
   }
+  // if ((softwareCFD <0 || softwareCFD>3)&&theChannel->chanid!=0&&theChannel->chanid!=1){
+  //   cout<<"jentry is "<<jentry<<endl;
+  //   cout<<"softCFD "<<softwareCFD<<endl;
+  //   cout<<"start is "<<start<<endl;
+  //   cout<<"A Problem with "<<theChannel->chanid<<endl;
+  // }
 }
 
 void LendaPacker::PackEvent(LendaEvent * Event){
@@ -107,7 +113,7 @@ void LendaPacker::PackEvent(LendaEvent * Event){
   Event->pushCubicTime(theChannel->timelow +theChannel->timehigh*4294967296.0+cubicCFD);
   Event->pushInternalCFD((theChannel->timecfd)/65536.0);
   Event->pushEntryNum(jentry);
-
+  Event->pushNumZeroCrossings(numZeroCrossings);
 
   Reset();//Reset the Packers variables
 }

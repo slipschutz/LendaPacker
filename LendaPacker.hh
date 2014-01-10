@@ -57,6 +57,7 @@ private:
   Int_t traceDelay;
   Long64_t jentry;
 
+  Int_t numZeroCrossings;
 };
 
 #endif
