@@ -47,6 +47,7 @@ void LendaPacker::Reset(){
   theChannel=NULL;
 
   thisEventsIntegral=0;
+  thisEventsPulseHeight=0;
   longGate=0;
   shortGate=0;
   cubicCFD=0;
@@ -76,6 +77,8 @@ void LendaPacker::CalcEnergyGates(){
     softwareCFD=theFilter.GetZeroCrossing(thisEventsCFD,numZeroCrossings)-traceDelay;
     start = theFilter.getStartForPulseShape(softwareCFD,traceDelay);
   }
+
+  thisEventsPulseHeight=theFilter.getMaxPulseHeight(theChannel->trace);
     
   thisEventsIntegral = theFilter.getEnergy(theChannel->trace);
   if (theChannel->chanid ==9){
@@ -114,6 +117,7 @@ void LendaPacker::PackEvent(LendaEvent * Event){
   Event->pushInternalCFD((theChannel->timecfd)/65536.0);
   Event->pushEntryNum(jentry);
   Event->pushNumZeroCrossings(numZeroCrossings);
+  Event->pushPulseHeight(thisEventsPulseHeight);
 
   Reset();//Reset the Packers variables
 }

@@ -38,6 +38,7 @@ public:
 
 
   Double_t thisEventsIntegral;
+  Double_t thisEventsPulseHeight;
   Double_t longGate;
   Double_t shortGate;
   Double_t cubicCFD;
