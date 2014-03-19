@@ -58,8 +58,8 @@ void LendaPacker::Reset(){
 
 }
 void LendaPacker::CalcTimeFilters(){
-  
-  
+
+
   theFilter.FastFilter(theChannel->trace,thisEventsFF,FL,FG); //run FF algorithim
   thisEventsCFD = theFilter.CFD(thisEventsFF,d,w); //run CFD algorithim
 
